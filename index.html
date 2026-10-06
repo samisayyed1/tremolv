@@ -25,7 +25,7 @@
 
 <div class="on-navy">
   <header class="wrap top">
-    <a class="top__logo" href="/" aria-label="tremolv home"><img src="assets/img/tremolv-logo-on-dark.svg" alt="tremolv" width="195" height="30"></a>
+    <a class="top__logo" href="./" aria-label="tremolv home"><img src="assets/img/tremolv-logo-on-dark.svg" alt="tremolv" width="195" height="30"></a>
     <nav class="top__nav" aria-label="Main">
       <a href="#how">How it works</a>
       <a href="#terms">The terms</a>
@@ -302,12 +302,10 @@
     <div class="ask__copy">
       <h2 class="h2">We are taking our first ten partners.</h2>
       <p class="intro">Ask for a 20-minute call. We go through your systems with you and tell you plainly whether there is something worth licensing.</p>
-      <p class="note">We use these details only to reply to you. <a href="privacy.html">How we handle them</a>.</p>
+      <p class="note">Prefer to write yourself? Email <a href="mailto:hello@tremolv.com">hello@tremolv.com</a>. <a href="privacy.html">How we handle your details</a>.</p>
     </div>
-    <form class="form" id="ask-form" name="call-request" method="POST" action="/thanks.html" data-netlify="true" netlify-honeypot="website">
-      <input type="hidden" name="form-name" value="call-request">
+    <form class="form" id="ask-form" method="post" enctype="text/plain" action="mailto:hello@tremolv.com?subject=Call%20request">
       <input type="hidden" name="fit-result" id="ask-fit" value="">
-      <p class="hp"><label>Leave this empty <input name="website" tabindex="-1" autocomplete="off"></label></p>
       <div class="field"><label for="ask-name">Your name</label><input id="ask-name" name="name" autocomplete="name" required></div>
       <div class="field"><label for="ask-company">Company</label><input id="ask-company" name="company" autocomplete="organization" required></div>
       <div class="field"><label for="ask-email">Work email</label><input id="ask-email" name="email" type="email" autocomplete="email" required></div>
@@ -315,7 +313,8 @@
       <div class="field field--wide"><label for="ask-country">Country</label><input id="ask-country" name="country" autocomplete="country-name" required></div>
       <div class="field field--wide"><label for="ask-notes">What does the business do? <small>(optional)</small></label><textarea id="ask-notes" name="notes" placeholder="For example: a courier company in Pune, 12 years old, around 80 staff."></textarea></div>
       <div class="form__foot">
-        <button class="btn btn-primary" type="submit" id="ask-submit">Request a call</button>
+        <button class="btn btn-primary" type="submit" id="ask-submit">Write the request email</button>
+        <span class="note">Opens your email app with the request filled in. You press send.</span>
       </div>
       <p class="form__msg" id="ask-msg" role="status" hidden></p>
     </form>

@@ -136,33 +136,29 @@
     });
   }
 
-  /* ---- request a call ---- */
+  /* ---- request a call: write the email in the visitor's own email app ---- */
   var ask = document.getElementById("ask-form");
   if (ask) {
     var msg = document.getElementById("ask-msg");
-    var submit = document.getElementById("ask-submit");
-    var say = function (kind, text) { msg.hidden = false; msg.setAttribute("data-kind", kind); msg.textContent = text; };
-
     ask.addEventListener("submit", function (e) {
-      if (!window.fetch || !window.URLSearchParams) { return; } /* plain form post still works */
       e.preventDefault();
       if (!ask.checkValidity()) { ask.reportValidity(); return; }
-      submit.disabled = true;
-      submit.textContent = "Sending";
-      fetch("/", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams(new FormData(ask)).toString()
-      }).then(function (res) {
-        if (!res.ok) { throw new Error(String(res.status)); }
-        ask.reset();
-        submit.textContent = "Request sent";
-        say("ok", "Request sent. We will reply by email.");
-      }).catch(function () {
-        submit.disabled = false;
-        submit.textContent = "Request a call";
-        say("err", "That did not send. Check your connection and try again, or email hello@tremolv.com.");
-      });
+      var v = function (n) { return (ask.elements[n] && ask.elements[n].value || "").trim(); };
+      var lines = [
+        "Name: " + v("name"),
+        "Company: " + v("company"),
+        "Email: " + v("email"),
+        "Phone or WhatsApp: " + (v("phone") || "not given"),
+        "Country: " + v("country"),
+        "Fit check: " + (v("fit-result") || "not taken"),
+        "",
+        v("notes")
+      ];
+      var href = "mailto:hello@tremolv.com?subject=" + encodeURIComponent("Call request: " + v("company")) + "&body=" + encodeURIComponent(lines.join("\n"));
+      window.location.href = href;
+      msg.hidden = false;
+      msg.setAttribute("data-kind", "ok");
+      msg.textContent = "Your email app should now show the request. Press send to finish. If nothing opened, write to hello@tremolv.com.";
     });
   }
 })();
